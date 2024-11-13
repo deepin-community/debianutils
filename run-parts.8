@@ -9,7 +9,6 @@
 .SH NAME
 run\-parts \- run scripts or programs in a directory
 .SH SYNOPSIS
-.PP
 .B run\-parts
 [\-\-test] [\-\-verbose] [\-\-debug] [\-\-report] [\-\-lsbsysinit] [\-\-regex=RE]
 [\-\-umask=umask] [\-\-arg=argument] [\-\-exit\-on\-error] [\-\-help]
@@ -18,7 +17,6 @@ run\-parts \- run scripts or programs in a directory
 .B run\-parts
 \-V
 .SH DESCRIPTION
-.PP
 .B run\-parts
 runs all the executable files named within constraints described below, found
 in directory
@@ -30,7 +28,7 @@ then the names must consist entirely of ASCII upper- and lower-case
 letters, ASCII digits, ASCII underscores, and ASCII minus-hyphens.
 
 If the \-\-lsbsysinit option is given, then the names must not end
-in .dpkg\-old  or .dpkg\-dist or .dpkg\-new or .dpkg\-tmp, and must
+in \&.dpkg\-old or \&.dpkg\-dist or \&.dpkg\-new or \&.dpkg\-tmp, and must
 belong to one or more of the following namespaces: the
 LANANA-assigned namespace (^[a\-z0\-9]+$); the LSB hierarchical and
 reserved namespaces (^_?([a\-z0\-9_.]+\-)+[a\-z0\-9]+$);
@@ -114,13 +112,11 @@ display usage information and exit.
 display version and copyright and exit.
 
 .SH EXAMPLES
-.P
 Print the names of all files in /etc that start with `p' and end with `d':
 .P
 run-parts \-\-list \-\-regex \[aq]^p.*d$\[aq] /etc
 
 .SH COPYRIGHT
-.P
 Copyright (C) 1994 Ian Jackson.
 .P
 Copyright (C) 1996 Jeff Noxon.

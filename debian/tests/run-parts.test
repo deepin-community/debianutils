@@ -1,0 +1,50 @@
+#!/bin/bash
+
+set -e
+
+cd ${AUTOPKGTEST_TMP}
+
+# Testing run-parts
+run-parts --version
+run-parts --help
+
+mkdir Run-parts && cd Run-parts
+touch file executable1
+echo "#! /bin/sh" >> executable1
+echo "ls -la file" >> executable1
+cp executable1 executable2
+chmod 755 executable1 executable2
+
+list=$(run-parts --list .)
+echo "$list"
+test=$(run-parts --test .)
+echo "$test"
+if [ "$list" != "$test" ]; then
+	echo "Success! 'run-parts --test' only runs on executables"
+fi
+
+run-parts -v . 2>&1
+run-parts --report --reverse .
+
+# Testing run-parts with scripts that fail
+set +e
+
+echo "ls -la file-does-not-exist" >> executable1
+
+run-parts -v --exit-on-error . 2>&1
+exitstatus="$?"
+if [ $exitstatus -eq "2" ]; then
+	echo "Success! 'run-parts --exit-on-error' preserves the exit code"
+else
+	echo "Fail! 'run-parts --exit-on-error' exits with unexpected exit code"
+	exit 1
+fi
+
+run-parts -v --exit-on-error . 2>&1 | tee -a exit_on_error_output.txt
+exit_on_error_output=$(cat exit_on_error_output.txt)
+if [[ "$exit_on_error_output" = *executable2* ]]; then
+	echo "Fail! 'run-parts --exit-on-error' should not execute executable2"
+	exit 1
+else
+	echo "Success! 'run-parts --exit-on-error' did not execute executable2"
+fi
