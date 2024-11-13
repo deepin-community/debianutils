@@ -92,7 +92,7 @@ void version()
 
 void usage()
 {
-  fprintf(stderr, "Usage: run-parts [OPTION]... DIRECTORY\n"
+  printf("Usage: run-parts [OPTION]... DIRECTORY\n"
 	  "      --test          print script names which would run, but don't run them.\n"
 	  "      --list          print names of all valid files (can not be used with\n"
 	  "                      --test)\n"
@@ -119,7 +119,7 @@ void usage()
  */
 void set_umask()
 {
-  int mask, result;
+  unsigned int mask, result;
 
   result = sscanf(optarg, "%o", &mask);
   if ((result != 1) || (mask > 07777) || (mask < 0)) {
@@ -361,7 +361,7 @@ void run_part(char *progname)
 
   if (WIFEXITED(result) && WEXITSTATUS(result)) {
     error("%s exited with return code %d", progname, WEXITSTATUS(result));
-    exitstatus = 1;
+    exitstatus = WEXITSTATUS(result);
   }
   else if (WIFSIGNALED(result)) {
     error("%s exited because of uncaught signal %d", progname,
@@ -414,7 +414,7 @@ static int open_tmpfile_rw(void)
 }
 #else
 static char tmpfile_path[] = "/tmp/run-parts.stdin.XXXXXX";
-static int cleanup_tmpfile(void)
+static void cleanup_tmpfile(void)
 {
 	unlink(tmpfile_path);
 }
@@ -694,7 +694,7 @@ regex_compile_pattern (void)
                     REG_EXTENDED | REG_NOSUB)) != 0)
             pt_regex = &excsre;
 
-        else if ( (err = regcomp(&tradre, "^[a-z0-9][a-z0-9-]*$", REG_NOSUB))
+        else if ( (err = regcomp(&tradre, "^[a-z0-9][a-z0-9_-]*$", REG_NOSUB))
                     != 0)
             pt_regex = &tradre;
 
