@@ -1,8 +1,49 @@
-debianutils (5.20-0deepin1) unstable; urgency=medium
+debianutils (5.23.2) unstable; urgency=medium
 
-  * fix ischroot failed in unshare environment
+  * run-parts: Remove warning on non-existing
+    directory with `--list`. It was emitted
+    to `stdout` and even on `stderr` it would
+    cause issues. (Closes: #1109705)
 
- -- WangZhaohui <wangzhaohui@uniontech.com>  Fri, 14 Mar 2025 12:27:48 +0800
+ -- Niels Thykier <niels@thykier.net>  Sun, 27 Jul 2025 11:01:22 +0000
+
+debianutils (5.23.1) unstable; urgency=medium
+
+  * Re-release to fix a few mistakes in 5.23.
+
+ -- Niels Thykier <niels@thykier.net>  Sat, 07 Jun 2025 06:40:41 +0000
+
+debianutils (5.23) unstable; urgency=medium
+
+  [ Ben Hutchings ]
+  * installkernel: Add support for hooks under /usr/share/kernel/postinst.d
+    (Closes: #1107113)
+
+ -- Niels Thykier <niels@thykier.net>  Sat, 07 Jun 2025 06:10:07 +0000
+
+debianutils (5.22) unstable; urgency=medium
+
+  [Bastian Blank]
+  * run-parts: Fix failing on empty directories (Closes: #1102512).
+
+  [Ileana Dumitrescu]
+  * d/tests/run-parts.test: Extend testing of run-parts.
+  * d/control: Bump standards version from 4.7.0 to 4.7.2.
+  * acinclude.m4: Bump DEBIANUTILS_VERSION from 5.21 to 5.22.
+
+ -- Ileana Dumitrescu <ileanadumitrescu95@gmail.com>  Fri, 11 Apr 2025 17:00:11 +0300
+
+debianutils (5.21) unstable; urgency=medium
+
+  [Johannes Schauer Marin Rodrigues]
+  * run-parts: Support uapi configuration_files_specification
+    (Closes: #1084170).
+  * d/tests/run-parts.test: Extend and enhance testing of run-parts.
+
+  [Ileana Dumitrescu]
+  * acinclude.m4: Bump DEBIANUTILS_VERSION from 5.20 to 5.21.
+
+ -- Ileana Dumitrescu <ileanadumitrescu95@gmail.com>  Fri, 15 Nov 2024 17:48:10 +0200
 
 debianutils (5.20) unstable; urgency=medium
 
