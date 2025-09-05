@@ -12,7 +12,7 @@ run\-parts \- run scripts or programs in a directory
 .B run\-parts
 [\-\-test] [\-\-verbose] [\-\-debug] [\-\-report] [\-\-lsbsysinit] [\-\-regex=RE]
 [\-\-umask=umask] [\-\-arg=argument] [\-\-exit\-on\-error] [\-\-help]
-[\-\-version] [\-\-list] [\-\-reverse] [\-\-] DIRECTORY
+[\-\-version] [\-\-list] [\-\-reverse] [\-\-] DIRECTORY [DIRECTORY ...]
 .PP
 .B run\-parts
 \-V
@@ -41,6 +41,13 @@ Files are run sequentially in the lexical sort order (according to the C/POSIX
 locale character collation rules) of their names unless the
 \-\-reverse option is given, in which case they are run in the
 opposite order.
+
+If more than more DIRECTORY is specified, then files with the same name
+in earlier directories will take precedence over files in directories
+specified in later arguments. This allows run-parts to receive directories
+with scripts in both /usr and /etc but let files in /etc override scripts
+in /usr if they are named the same. The directory under /etc would need
+to be specified before the path under /usr for this to happen.
 
 .SH OPTIONS
 .TP
@@ -71,6 +78,9 @@ reverse the scripts' execution order.
 .TP
 .B \-\-exit\-on\-error
 exit as soon as a script returns with a non-zero exit code.
+.TP
+.B \-\-stdin
+multiplex stdin to scripts being run, using temporary file
 .TP
 .B \-\-lsbsysinit
 use LSB namespaces instead of classical behavior.
